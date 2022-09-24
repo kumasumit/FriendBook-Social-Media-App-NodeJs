@@ -111,6 +111,9 @@ module.exports.logout = function(req, res)
     //set the user_id stored in cookies.user_id to null
     // req.cookies.user_id = null;
     res.cookie('user_id', null);
+    //on logout we set the cookie in request object to null
+    //and hence all the information regarding the user is lost
+    //after destroying the cookie we render the sign-in page
     return res.render('user_sign_in',{
         title: "FriendBook | Sign In"
     });
