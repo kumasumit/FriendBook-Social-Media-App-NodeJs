@@ -22,7 +22,7 @@ module.exports.signUp = function(req, res){
 //this action handles sign_up form submission data
 module.exports.create = function(req, res){
 
-    console.log(req.body);
+    // console.log(req.body);
     // first check whether password and confirm password are equal or notEqual, if they are not equal send the user back to the sign up page
     if(req.body.password !== req.body.confirm_password){
         return res.redirect('back');

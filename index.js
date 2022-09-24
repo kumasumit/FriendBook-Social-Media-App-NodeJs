@@ -1,11 +1,16 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 var cookieParser = require('cookie-parser')
 const app = express()
 const port = 8000
 
-app.use(express.urlencoded());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(express.static('./assets'))
 // for getting static files like images, js files and css files
