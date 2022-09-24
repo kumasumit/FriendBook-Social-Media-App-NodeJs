@@ -51,3 +51,31 @@ module.exports.create = function(req, res){
         }
     })
 }
+
+//Action 5 for /users/create-session to sign-in a created user
+//this action handles sign_in form submission data
+module.exports.createSession = function(req, res){
+    //find the user by the email
+    User.findOne({email: req.body.email}, function(err, user){
+        if(err){
+            console.log('error in finding user in signing in');
+            return;
+        }
+        //handle user found
+        if(user){
+            //handle password which dont match with saved user password
+            if(user.password !== req.body.password){
+                //return the control back to the sign in page
+                return res.redirect('back');
+            }
+            // handle session-creation if user is found and the password entered is same as password of the user in the database
+            res.cookie('user_id', user._id);
+            // now redirect the user to the profile page
+            return res.redirect('/users/profile');
+        }
+        // handle user not found redirect it to the sign-in page
+        else{
+            return res.redirect('back');
+        }
+    })
+}
