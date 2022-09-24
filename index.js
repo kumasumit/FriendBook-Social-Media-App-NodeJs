@@ -1,10 +1,12 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
+var cookieParser = require('cookie-parser')
 const app = express()
 const port = 8000
 
-
+app.use(express.urlencoded());
+app.use(cookieParser());
 app.use(express.static('./assets'))
 // for getting static files like images, js files and css files
 //we tell the app to look for images, css and script js files in assests folder inside root
