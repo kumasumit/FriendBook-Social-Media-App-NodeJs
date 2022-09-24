@@ -1,0 +1,26 @@
+{
+  "name": "friendbook-social-media-app-nodejs",
+  "version": "1.0.0",
+  "description": "A friendbook social media App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumasumit/FriendBook-Social-Media-App-NodeJs.git"
+  },
+  "author": "Kumar Sumit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kumasumit/FriendBook-Social-Media-App-NodeJs/issues"
+  },
+  "homepage": "https://github.com/kumasumit/FriendBook-Social-Media-App-NodeJs#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
