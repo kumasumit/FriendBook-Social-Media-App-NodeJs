@@ -1,3 +1,4 @@
+//this is entry point for all the routes for this folder
 const express = require('express')
 const router = express.Router()
 //include the home_controller
