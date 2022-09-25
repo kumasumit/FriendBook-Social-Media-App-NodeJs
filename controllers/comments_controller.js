@@ -11,6 +11,7 @@ module.exports.create = function(req, res){
             Comment.create({
                 content: req.body.content,
                 post: req.body.post,
+                // req.boy.post is the hidden variable that contains the post._id for which the comment was posted
                 user: req.user._id
             }, function(err, comment){
                 // handle error

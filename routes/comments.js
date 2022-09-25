@@ -6,5 +6,4 @@ const commentsController = require('../controllers/comments_controller');
 //we use passport.checkAuthentication to check whether user is logged-in or not, so that only logged-in user can create a post
 router.post('/create', passport.checkAuthentication,
 commentsController.create);
-
 module.exports = router

@@ -8,6 +8,8 @@ router.get('/', homeController.home);
 router.use('/users', require('./users'));
 //any routes with /posts/something will be controlled by routes/posts.js file
 router.use('/posts', require('./posts'));
+//any routes with /comments/something will be controlled by routes/posts.js file
+router.use('/comments', require('./comments'));
 
 
 

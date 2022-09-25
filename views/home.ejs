@@ -3,12 +3,14 @@
 <section id="posts-feed">
     <h4>Posts</h4>
     <% if(locals.user){ %>
+        <!-- post submit/create container -->
         <!-- show the post submit form only to a signed-in user -->
         <form action="/posts/create" id="new-post-form" method="POST">
             <textarea name="content" cols="30" rows="3" placeholder="Type Here..."></textarea>
             <input type="submit" value="Post">
         </form>
         <% } %>
+        <!-- post display container -->
         <div id="posts-list-container">
             <ul>
                 <% for(post of posts) {%>
@@ -17,7 +19,7 @@
                       <%= post.content %> <br/>
                       <%= post.user.name %>
                     </p>
-                    <!-- Comments Container for each post -->
+                    <!-- posts comment container -->
                     <div class="post-comments">
                         <% if(locals.user) { %>
                         <!-- show the comment submit form only to a signed-in user -->
@@ -28,6 +30,17 @@
                             <input type="submit" value="Add Comment">
                         </form>
                         <% } %>
+                        <!-- container to display comments for each post -->
+                        <div class="post-comments-list">
+                            <ul id="post_comments_<%= post._id %>">
+                              <% for(comment of post.comments) { %>
+                              <p>
+                                <%= comment.content %><br />
+                                <%= comment.user.name %>
+                              </p>
+                              <% } %>
+                            </ul>
+                        </div>
                     </div>
                  </li>
                 <% } %>
