@@ -17,11 +17,14 @@
                       <%= post.content %> <br/>
                       <%= post.user.name %>
                     </p>
+                    <!-- Comments Container for each post -->
                     <div class="post-comments">
                         <% if(locals.user) { %>
+                        <!-- show the comment submit form only to a signed-in user -->
                         <form action="/comments/create" method="POST">
                             <input type="text" name="content" placeholder="Add Comments ...." required>
                             <input type="hidden" name="post" value="<%= post._id %>">
+                            <!-- here we are passing post.id as a hidden value with the content of the comment -->
                             <input type="submit" value="Add Comment">
                         </form>
                         <% } %>
