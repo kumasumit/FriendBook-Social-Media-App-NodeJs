@@ -1,36 +1,40 @@
-<h1>FriendBook / <%= title %>
-</h1>
-<!-- this is a section to display posts and comments -->
-<section id="posts-feed">
+<link rel="stylesheet" href="/css/home.css" />
+<h1>FriendBook / <%= title %></h1>
+<div id="home-container">
+  <!-- this is a section to display posts and comments -->
+  <section id="posts-feed">
     <h4>Posts</h4>
     <% if(locals.user){ %>
-        <!-- post submit/create container -->
-        <!-- show the post submit form only to a signed-in user -->
-        <form action="/posts/create" id="new-post-form" method="POST">
-            <textarea namhe="content" cols="30" rows="3" placeholder="Type Here..."></textarea>
-            <input type="submit" value="Post">
-        </form>
-        <% } %>
-        <!-- post display container -->
-        <div id="posts-list-container">
-            <ul>
-                <% for(post of posts) {%>\
-                    <!-- here post.user contains the populated user and not just the userID -->
-                    <%- include('partials/post'); -%>
-                <% } %>
-            </ul>
-        </div>
-</section>
-<!-- this is a section to display friends of an user -->
-<section id="user-friends">
+    <!-- post submit/create container -->
+    <!-- show the post submit form only to a signed-in user -->
+    <form action="/posts/create" id="new-post-form" method="POST">
+      <textarea
+        namhe="content"
+        cols="30"
+        rows="3"
+        placeholder="Type Here..."
+      ></textarea>
+      <input type="submit" value="Post" />
+    </form>
+    <% } %>
+    <!-- post display container -->
+    <div id="posts-list-container">
+      <ul>
+        <% for(post of posts) {%>\
+        <!-- here post.user contains the populated user and not just the userID -->
+        <%- include('partials/post'); -%> <% } %>
+      </ul>
+    </div>
+  </section>
+  <!-- this is a section to display friends of an user -->
+  <section id="user-friends">
     <h4>Friends</h4>
     <% for(user of all_users) { %>
-       <!-- here user is user from User Schema, so it contains all the fields not just userId   -->
-      <!-- display all the users alongwith a link to each user profile -->
-      <p>
-        <a href="/users/profile/<%= user.id %>">
-          <%= user.name %>
-        </a>
-      </p>
+    <!-- here user is user from User Schema, so it contains all the fields not just userId   -->
+    <!-- display all the users alongwith a link to each user profile -->
+    <p>
+      <a href="/users/profile/<%= user.id %>"> <%= user.name %> </a>
+    </p>
     <% } %>
-</section>
+  </section>
+</div>

@@ -1,4 +1,19 @@
-#posts-feed{
-    padding-bottom: 100px;
+
+#home-container{
+    display: flex;
+    #posts-feed{
+        width: 70%;
+        padding: 10px;
+        padding-bottom: 100px;
+    }
+    #user-friends {
+        width: 30%;
+        padding: 10px;
+        padding-bottom: 100px;
+        border-left: 1px solid lightgrey;
+        height: 100vh;
+
+
+    }
 
 }
