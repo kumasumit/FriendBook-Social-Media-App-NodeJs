@@ -26,3 +26,5 @@ module.exports.create = function(req, res){
 
     });
 }
+
+//Action 2 to delete a comment, if a signed-in user owns the comment
