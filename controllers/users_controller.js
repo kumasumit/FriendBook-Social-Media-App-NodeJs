@@ -1,11 +1,31 @@
 const User = require('../models/users');
-//Action 1 for /users/profile
+//Action 1 for /users/profile/:id
 module.exports.profile = function(req, res){
-    res.render('user_profile', {title:"User-Profile"})
-    //here user_profile is the user_profile.ejs page in views and title is the context with value User-Profile
-
+    //here we find the user from the database by id
+    User.findById(req.params.id, function(err, user){
+        //here params.id is the id of the user on which you clicked
+        res.render('user_profile', {
+            title: "User Profile",
+            profile_user: user
+            //here user is user found from the database by req.params.id from the users collection in the MongoDBdatabase
+        })
+    })
 }
+//Action 5 to update profile
+module.exports.update = function(req, res){
+    if(req.user.id == req.params.id){
+        //check if the user clicked is the same user logged-in/signed-in
+        User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+            //req.body contains name and email from the form, which the user can update
+            // if the update is successfull redirect to the home page
+            return res.redirect('/');
 
+        })
+    }else{
+        //if logged-in user is trying to update someone's else profile, then send Unauthorized request
+        return res.status(401).send('Unauthorized');
+    }
+}
 //Action 2 for /users/sign-in
 //this renders the sign in page
 module.exports.signIn = function(req, res){

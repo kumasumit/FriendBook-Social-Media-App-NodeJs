@@ -3,7 +3,8 @@ const router = express.Router()
 const passport = require('passport');
 //include the users_controller
 const usersController = require('../controllers/users_controller');
-router.get('/profile',passport.checkAuthentication, usersController.profile);
+router.get('/profile/:id',passport.checkAuthentication, usersController.profile);
+router.post('/update/:id', passport.checkAuthentication, usersController.update);
 router.get('/sign-in', usersController.signIn);
 router.get('/sign-up', usersController.signUp);
 

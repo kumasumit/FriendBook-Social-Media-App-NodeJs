@@ -1,7 +1,17 @@
 <footer>
     <h2>@FriendBook All Rights Reserved</h2>
-    <ul>
-        <li><a href="/">Home</a></li>
-    </ul>
+    <% if (locals.user){ %>
+        <!-- if the user is signed-in , means user is present in locals
+        only then show the profile page and the Home page -->
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li>
+                <a href="/users/profile/<%= locals.user.id %>">
+                    <%= locals.user.name %>
+                </a>
+            </li>
+
+        </ul>
+    <% } %>
     <h2>Designed/Developed by Kumar Sumit</h2>
 </footer>

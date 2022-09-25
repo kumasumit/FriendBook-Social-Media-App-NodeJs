@@ -3,10 +3,13 @@
 
     <ul>
         <% if (locals.user){ %>
-            <!-- if users is present in locals display the name and sign-out option -->
+            <!-- if users is present in locals/ user is logged-in/signed-in display the name and sign-out option -->
             <li>
-                <a href="/users/profile">
-                    <%= user.name %>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/users/profile/<%= locals.user.id %>">
+                    <%= locals.user.name %>
                 </a>
             </li>
             <li>
