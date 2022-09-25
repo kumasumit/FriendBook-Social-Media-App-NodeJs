@@ -15,6 +15,13 @@
             <ul>
                 <% for(post of posts) {%>
                  <li>
+                    <% if(locals.user && (locals.user.id == post.user.id)) {%>
+                        <!-- if user is signed-in and the signed-in user owns/created the post the post -->
+                        <!-- only then show the delete option -->
+                        <small>
+                         <a href="/posts/destroy/<%= post.id %>">X</a>
+                        </small>
+                    <% } %>
                     <p>
                       <%= post.content %> <br/>
                       <%= post.user.name %>
