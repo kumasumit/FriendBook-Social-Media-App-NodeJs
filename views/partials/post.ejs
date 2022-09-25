@@ -1,0 +1,36 @@
+<!-- here post.user contains the populated user and not just the userID -->
+<li>
+    <p>
+        <% if(locals.user && (locals.user.id==post.user.id)) {%>
+          <!-- if user is signed-in and the signed-in user owns/created the post the post -->
+          <!-- only then show the delete option -->
+          <small>
+            <a href="/posts/destroy/<%= post.id %>">X</a>
+          </small>
+        <% } %>
+        <%= post.content %> <br />
+        <%= post.user.name %>
+    </p>
+    <!-- posts comment container -->
+    <div class="post-comments">
+        <% if(locals.user) { %>
+            <!-- show the comment submit form only to a signed-in user -->
+            <form action="/comments/create" method="POST">
+                <input type="text" name="content" placeholder="Add Comments ...." required>
+                <input type="hidden" name="post" value="<%= post._id %>">
+                <!-- here we are passing post.id as a hidden value with the content of the comment -->
+                <input type="submit" value="Add Comment">
+            </form>
+        <% } %>
+        <!-- container to display comments for each post -->
+            <div class="post-comments-list">
+                <ul id="post_comments_<%= post._id %>">
+                    <% for(comment of post.comments) { %>
+                        <!-- here comment contains the populated user, comment not just the userId and commentId-->
+                        <%- include('comments'); -%>
+                        <!-- here we have relative path, since we are already in partials folder, so we do only comments not partials/comments -->
+                    <% } %>
+                </ul>
+            </div>
+    </div>
+</li>

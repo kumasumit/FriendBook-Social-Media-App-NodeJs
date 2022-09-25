@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <title>
-        <%= title %>
-    </title>
-    <link rel="stylesheet" href="/css/layout.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
     <%- style %>
-        <!-- all the styles from specific pages will go here -->
-</head>
+    <!-- all the styles from specific pages will go here -->
+  </head>
 
-<body>
+  <body>
     <%- include('partials/header'); -%>
-        <!-- here both headers and footer are partials -->
-        <main id="layout-main">
-            <!-- this is main body/wall/timeline where you see all your posts, friends and other things     -->
-            <%- body %>
-                <!-- the value of this body is whatever comes from controllers and routes
-    it can be home.ejs or profile.ejs
-    the content of home.ejs or profile.ejs gets filled here
-    -->
-        </main>
+    <!-- here both headers and footer are partials -->
+    <main id="layout-main">
+      <!-- this is main body/wall/timeline where you see all your posts, friends and other things     -->
+      <%- body %>
+      <!-- the value of this body is whatever comes from controllers and routes
+      it can be home.ejs or profile.ejs
+      the content of home.ejs or profile.ejs gets filled here
+      -->
+    </main>
 
-
-        <%- include('partials/footer'); -%>
-            <%- script %>
-                <!-- all the scripts will be placed here -->
-</body>
-
+    <%- include('partials/footer'); -%>
+    <%- script %>
+    <!-- all the scripts will be placed here -->
+  </body>
 </html>
