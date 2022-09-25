@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport');
-//include the home_controller
+//include the users_controller
 const usersController = require('../controllers/users_controller');
 router.get('/profile',passport.checkAuthentication, usersController.profile);
 router.get('/sign-in', usersController.signIn);
