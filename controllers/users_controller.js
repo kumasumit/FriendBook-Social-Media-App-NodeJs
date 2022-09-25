@@ -51,3 +51,9 @@ module.exports.create = function(req, res){
         }
     })
 }
+
+//Action 4 for /users/create-session to  create a new session for logged in user
+//this action handles sign_in form submission data
+module.exports.createSession = function(req, res){
+    return res.redirect('/');
+}
