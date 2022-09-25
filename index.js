@@ -6,6 +6,8 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport_local_strategy');
 var cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo');
+
 const app = express();
 const port = 8000
 
@@ -41,13 +43,18 @@ app.use(session({
   resave:false,
   cookie: {
       maxAge: (1000*60*100)
-  }
+  },
+  store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/FriendBook-Development' })
 
 }))
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.setAuthenticatedUser);
+//here as soon as the passport is initialized and the session is created for logged in user,
+//we save the user in locals variable to display it in views
 
+//this all must be done before router is loaded
 
 //this tells the index/root that all routes will be handled by index.js files in routes folder
 //use express Router

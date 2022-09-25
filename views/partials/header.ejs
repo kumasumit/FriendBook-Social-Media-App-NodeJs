@@ -1,3 +1,26 @@
 <header>
     Page Header
+
+    <ul>
+        <% if (locals.user){ %>
+            <!-- if users is present in locals display the name and sign-out option -->
+            <li>
+                <a href="/users/profile">
+                    <%= user.name %>
+                </a>
+            </li>
+            <li>
+                <a href="/users/sign-out">Sign Out</a>
+            </li>
+        <% }else{ %>
+            <!-- if there is no user present in locals display the sign-up and sign-in option -->
+            <li>
+                <a href="/users/sign-in">Sign In</a>
+            </li>
+            <li>
+                <a href="/users/sign-up">Sign Up</a>
+            </li>
+        <% } %>
+    </ul>
+
 </header>

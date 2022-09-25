@@ -9,13 +9,29 @@ module.exports.profile = function(req, res){
 //Action 2 for /users/sign-in
 //this renders the sign in page
 module.exports.signIn = function(req, res){
-    res.render('user_sign_in', {title:"Sign In"})
+    if(req.isAuthenticated())
+    {
+    //if user is logged in, redirect it to the profile page
+    return res.redirect('/users/profile')
+    }
+    //if user is not signed-up, send the control to sign-in page form
+    return res.render('user_sign_in', {
+        title: "FriendBook | Sign In"
+    })
 }
 
 //Action 3 for /users/sign-up
 //this renders the sign up page
 module.exports.signUp = function(req, res){
-    res.render('user_sign_up', {title:"Sign Up"})
+    if(req.isAuthenticated())
+    {
+    //  if user is alreday signed in , send the user to the profile page
+    return res.redirect('/users/profile')
+    }
+    //if user is not signed-up, send the control to sign-up page form
+    return res.render('user_sign_up', {
+        title: "FriendBook | Sign Up"
+    })
 }
 
 //Action 4 for /users/create to  create a new user
@@ -56,4 +72,15 @@ module.exports.create = function(req, res){
 //this action handles sign_in form submission data
 module.exports.createSession = function(req, res){
     return res.redirect('/');
+}
+//Action 5 for /users/sign-out to destroy session for logged in user on clicking sign out button
+//controller for logout for signout
+module.exports.destroySession = function(req, res, next)
+{
+
+        req.logout(function(err) {
+          if (err) { return next(err); }
+          res.redirect('/');
+        });
+
 }
