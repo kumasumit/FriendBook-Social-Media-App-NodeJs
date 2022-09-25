@@ -1,9 +1,12 @@
-const express = require('express')
-const bodyParser = require('body-parser')
+const express = require('express');
+const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
-var cookieParser = require('cookie-parser')
-const app = express()
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport_local_strategy');
+var cookieParser = require('cookie-parser');
+const app = express();
 const port = 8000
 
 
@@ -29,7 +32,21 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 // this will set views to look for views in the views folder
 //end the set up for ejs view engine and views folder
+//set up express-sessions and passport
+app.use(session({
+  name: 'friendbook',
+  //todo change the secret in production
+  secret: 'blahsomething',
+  saveUninitialized: false,
+  resave:false,
+  cookie: {
+      maxAge: (1000*60*100)
+  }
 
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //this tells the index/root that all routes will be handled by index.js files in routes folder
