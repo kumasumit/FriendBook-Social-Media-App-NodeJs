@@ -7,11 +7,18 @@ const passport = require('passport');
 const passportLocal = require('./config/passport_local_strategy');
 var cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
+const sassMiddleware = require('node-sass-middleware');
 
 const app = express();
 const port = 8000
 
-
+app.use(sassMiddleware({
+  src: './assets/scss',
+  dest: './assets/css',
+  debug: true,
+  outputStyle: 'extended',
+  prefix: '/css'
+}));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
