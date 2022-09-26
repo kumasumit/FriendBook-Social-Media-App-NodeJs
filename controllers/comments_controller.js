@@ -57,7 +57,7 @@ module.exports.destroy = async function (req, res) {
         //here we are going inside comment models and finding the comment
         //which the user clicked to delete
         let comment = await Comment.findById(req.params.id).populate('post');
-        console.log(comment);
+        // console.log(comment);
         if (comment.user == req.user.id) {
             //if the user who posted that comment is same as the user trying to delete the comment
             let postId = comment.post.id;
