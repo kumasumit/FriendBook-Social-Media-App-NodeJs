@@ -26,7 +26,7 @@ module.exports.create = async function (req, res) {
             post.save();
             //save the updated post
             // Handling Ajax Requests
-            //check to see if the incoming request is an xhr request
+            // check to see if the incoming request is an xhr/ajax request
             if (req.xhr) {
                 return res.status(200).json({
                     data: {
@@ -37,8 +37,8 @@ module.exports.create = async function (req, res) {
                 })
             }
             //after creating the post we return the control back to home
-            return res.redirect('/');
-            //redirect to home
+            return res.redirect('back');
+            //redirect to home page
         }
         //if loop closed
     } catch (err) {
@@ -56,10 +56,11 @@ module.exports.destroy = async function (req, res) {
         //find a comment by id passed while deleting comment
         //here we are going inside comment models and finding the comment
         //which the user clicked to delete
-        let comment = await Comment.findById(req.params.id);
+        let comment = await Comment.findById(req.params.id).populate('post');
+        console.log(comment);
         if (comment.user == req.user.id) {
             //if the user who posted that comment is same as the user trying to delete the comment
-            let postId = comment.post;
+            let postId = comment.post.id;
             // comment.post holds the post._id of the post on which the comment is posted
             comment.remove();
             //remove/delete the comment
@@ -71,7 +72,19 @@ module.exports.destroy = async function (req, res) {
             return res.redirect('back');
 
 
-        } else {
+        }else if(comment.post.user == req.user.id){
+            let postId = comment.post.id;
+            // comment.post holds the post._id of the post on which the comment is posted
+            comment.remove();
+            //remove/delete the comment
+
+            await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } })
+            //go in Posts Schema search the post by id, inside comments array of that post, pull a specific comment by id passed by user and delete it
+            //this will delete the comment_id from the comments array of that particular post
+
+            return res.redirect('back');
+
+        }else{
             //if the user trying to delete the comment is different from user who posted that comment
             //send the control back to the user
             return res.redirect('back');

@@ -11,14 +11,14 @@ module.exports.create = async function (req, res) {
             //here in id we are storing the id of the user who is creating the post
         })
         // Handling Ajax Requests
-        //check to see if the incoming request is an xhr request
+        //check to see if the incoming request is an xhr/Ajax  request
         if(req.xhr){
             return res.status(200).json({
                 data:{
                     post: post
                     //here post has content, comments array and only the userId, not the complete populated user
                 },
-                message: "Comment sucessfully created"
+                message: "Post sucessfully created"
             })
         }
         //after creating the post we return the control back to home

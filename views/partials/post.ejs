@@ -1,5 +1,6 @@
 <!-- here post.user contains the populated user and not just the userID -->
-<li>
+<li id="post-<%= post._id %>">
+    <!-- here we link post with post._id to uniquely identify the li when deleting the post -->
     <p>
         <% if(locals.user && (locals.user.id==post.user.id)) {%>
           <!-- if user is signed-in and the signed-in user owns/created the post the post -->

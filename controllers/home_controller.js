@@ -16,10 +16,21 @@ module.exports.home =async function (req, res) {
             path: 'comments',
             // this will populate all the comments for that post
             populate: {
-                path: 'user'
+                path: 'user',
                 // this will populate the user which created that comment
-            }
+            },
+
+        }).populate({
+            path: 'comments',
+            // this will populate all the comments for that post
+            populate: {
+                path: 'post',
+                // this will populate the user which created that comment
+            },
+
         })
+
+        console.log(JSON.stringify(posts))
     // Step 2: get users
     //any success response of User.find will be stored in users
     let users = await User.find({});
