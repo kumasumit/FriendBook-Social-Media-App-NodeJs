@@ -20,7 +20,7 @@
     <!-- post display container -->
     <div id="posts-list-container">
       <ul>
-        <% for(post of posts) {%>\
+        <% for(post of posts) {%>
         <!-- here post.user contains the populated user and not just the userID -->
         <%- include('partials/post'); -%> <% } %>
       </ul>
@@ -38,8 +38,10 @@
     <% } %>
   </section>
 </div>
-<!-- this is a script to submit requests to add/delete a comment via ajax -->
-<script src="/js/home_post_comment.js"></script>
+
 <!-- this is a script ho submit requests to add/delete a post via ajax -->
 <script src="/js/home_posts.js"></script>
+
+<!-- this is a script to submit requests to add/delete a comment via ajax -->
+<script src="/js/home_post_comments.js"></script>
 
