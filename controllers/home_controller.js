@@ -1,34 +1,40 @@
 const User = require('../models/users');
 const Post = require('../models/posts');
 //Action 1 for / route
-module.exports.home = function (req, res) {
+// convert the action to async/await
+module.exports.home =async function (req, res) {
 
-    // 2nd step for loading post and comment both
-    Post.find({})
-        //find all the posts from the database
-        .populate('user', 'name email')
-        //populate user for each post with only name and email, not password
+ //first get posts, get users, and then return posts, users as context
+ try {
+    // Step 1: get posts
+    //any success response of Post.find will be stored in posts
+    let posts = await Post.find({})
+        //find({}) this will find all the posts
+        .populate('user')
+        //this will popluate the user which created that post
         .populate({
             path: 'comments',
-            //populate comments array for each post
             // this will populate all the comments for that post
             populate: {
-                //populate user inside comment for each comment inside comments array
-                // this will populate the user which created that comment
                 path: 'user'
+                // this will populate the user which created that comment
             }
         })
-        .exec(function(err, posts) {
-            if(err) {
-                return handleError(err);
-            }
-            User.find({}, function(err, users){
-                //User.find({}) will find all the users from the database
-                    return res.render('home', {
-                        title:" FriendBook || Home",
-                        posts: posts,
-                        all_users: users
-                    });
-            })
-        })
+    // Step 2: get users
+    //any success response of User.find will be stored in users
+    let users = await User.find({});
+    //User.find({}) will display all the users in the database
+    // Step 3: return posts and users to the home view page, home.ejs page
+    return res.render('home', {
+        title: " FriendBook || Home",
+        posts: posts,
+        all_users: users
+    });
+}catch(err)
+{
+    // if there is any error in fethching posts or users,
+    // the control will come to catch, the console will display the error and return
+    console.log('Error', err);
+    return;
+}
 }
