@@ -4,12 +4,22 @@ const Comment = require('../models/comments');
 module.exports.create = async function (req, res) {
     try {
         //create the post with content and userId of the user who created that post
-        await Post.create({
+        let post = await Post.create({
             content: req.body.content,
             user: req.user._id
             //here we dont store the complete user but only the id, since id is unique for every user, and can be used to populate the entire user at a later stage
             //here in id we are storing the id of the user who is creating the post
         })
+        //check to see if the incoming request is an xhr request
+        if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    post: post
+                    //here post has content, comments array and only the userId, not the complete populated user
+                },
+                message: "Post created"
+            })
+        }
         //after creating the post we return the control back to home
         return res.redirect('back');
     } catch (error) {
