@@ -1,17 +1,15 @@
-<!-- here comment contains the populated user, post not just the userId, postId -->
-<li>
+<!-- here comment contains the populated user and  post not just the userId, postId -->
+<li id="comment-<%= comment._id %>">
     <p>
-
-
         <% if(locals.user && locals.user.id == comment.user.id) { %>
             <!-- if user exists/or user is signed-in and if the id of the logged in user and the id of user who created the comment is same, only then show the delete button   -->
             <small>
-                <a href="/comments/destroy/<%= comment.id %>">X</a>
+                <a class="delete-comment-button" href="/comments/destroy/<%= comment.id %>">X</a>
             </small>
         <% }else if(locals.user && locals.user.id == comment.post.user) {%>
             <!-- if user exists/or user is signed-in and if the id of the logged in user and the id of user who created the comment is same, only then show the delete button   -->
             <small>
-                <a href="/comments/destroy/<%= comment.id %>">X</a>
+                <a class="delete-comment-button" href="/comments/destroy/<%= comment.id %>">X</a>
             </small>
 
         <% } %>

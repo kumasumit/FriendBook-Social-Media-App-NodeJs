@@ -21,6 +21,7 @@ module.exports.create = async function (req, res) {
                 //here user contains the id of user who has created that comment
             });
 
+
             //after the comment is created push that comment in form of id to comments array inside Post Schema
             post.comments.push(comment);
             post.save();
@@ -28,17 +29,20 @@ module.exports.create = async function (req, res) {
             // Handling Ajax Requests
             // check to see if the incoming request is an xhr/ajax request
             if (req.xhr) {
-                return res.status(200).json({
-                    data: {
-                        comment: comment
-                        //here comment has content, postId ,userId, not the complete populated user or post details
-                    },
-                    message: "Comment sucessfully created"
-                })
+             //here comment has content, postId ,userId, not the complete populated user or post details
+             // Similar for comments to fetch the users name to get comment.user.name we need to populate the user with only name
+             comment = await comment.populate('user', 'name');
+             return res.status(200).json({
+                 data: {
+                     comment: comment
+                     //here comment conatins the complete user details and not just the userId
+                 },
+                 message: "Comment created successfully!"
+             });
             }
             //after creating the post we return the control back to home
-            return res.redirect('back');
-            //redirect to home page
+            return res.redirect('/');
+            //redirect to load all the populated details from the homecontroller.
         }
         //if loop closed
     } catch (err) {
@@ -68,6 +72,15 @@ module.exports.destroy = async function (req, res) {
             await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } })
             //go in Posts Schema search the post by id, inside comments array of that post, pull a specific comment by id passed by user and delete it
             //this will delete the comment_id from the comments array of that particular post
+            // send the comment id which was deleted back to the views
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Comment deleted"
+                });
+            }
 
             return res.redirect('back');
 
@@ -81,7 +94,15 @@ module.exports.destroy = async function (req, res) {
             await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } })
             //go in Posts Schema search the post by id, inside comments array of that post, pull a specific comment by id passed by user and delete it
             //this will delete the comment_id from the comments array of that particular post
-
+            // send the comment id which was deleted back to the views
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Comment deleted"
+                });
+            }
             return res.redirect('back');
 
         }else{

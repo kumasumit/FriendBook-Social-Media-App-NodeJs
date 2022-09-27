@@ -10,7 +10,9 @@ module.exports.create = async function (req, res) {
       //here we dont store the complete user but only the id, since id is unique for every user, and can be used to populate the entire user at a later stage
       //here in id we are storing the id of the user who is creating the post
     });
-
+    post = await post.populate('user', 'name email');
+    //here we populate the post userId with complete details of user with only name and email fields of user Schema and not the password details of the user,
+    // console.log(post);
     // Handling Ajax Requests
     //check to see if the incoming request is an xhr/Ajax  request
     if (req.xhr) {
@@ -54,7 +56,7 @@ module.exports.destroy = async function (req, res) {
           data: {
             post_id: req.params.id,
           },
-          message: "Post deleted !",
+          message: "Post deleted successfully !",
         });
       }
       //after deleting posts and comments return the control back to requesting page
