@@ -11,7 +11,7 @@ const likeSchema = new mongoose.Schema({
     //the user may like a comment or a post
     likeable: {
         type: mongoose.Schema.ObjectId,
-        require: true,
+        required: true,
         refPath: 'onModel'
     },
     // this field is used for defining the type of the liked object since this is a dynamic reference
