@@ -19,6 +19,15 @@ const postSchema = new mongoose.Schema({
         }
         //here we are referencing the Comment model by comment_id
         ,
+    ],
+    likes: [
+        //include the array of ids of all likes in the post Schema itself
+        //this includes the id of all likes associated with a particular post
+
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Like'
+        }
     ]
 
 },{

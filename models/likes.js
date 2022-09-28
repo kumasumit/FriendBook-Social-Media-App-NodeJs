@@ -1,7 +1,5 @@
 //Create a model for likes
 const mongoose = require('mongoose');
-
-
 const likeSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
@@ -21,7 +19,7 @@ const likeSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ['Post', 'Comment']
-        //here enum stores the different types of models like Post or comment
+        //here enum stores the different types of models like either Post or comment
     }
 }, {
     timestamps: true
