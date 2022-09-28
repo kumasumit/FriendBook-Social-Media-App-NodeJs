@@ -24,7 +24,6 @@ let createPost = function () {
         //a fuction call to paint new post to DOM
         let newPost = newPostDom(data.data.post);
 
-        new PostComments(data.data.post._id);
 
         // CHANGE :: enable the functionality of the toggle like button on the new post
         // new ToggleLike($(" .toggle-like-button", newPost));
@@ -36,6 +35,8 @@ let createPost = function () {
         //this will go inside new post and find the link with class delete-post-button
         $("#new-post-form")[0].reset();
         //this will clear the data from with id new-post-form
+
+        postComments(data.data.post._id);
       },
       error: function (error) {
         console.log(error.responseText);
@@ -115,7 +116,7 @@ ${post.user.name}
                           <input type="submit" value="Add Comment">
                       </form>
 <div class="post-comments-list">
-                      <ul id="post-comments-${post._id}">
+                      <ul id="post_comments_${post._id}">
 
                       </ul>
                   </div>
@@ -185,7 +186,7 @@ let convertPostsToAjax = function () {
       deletePost(deleteButton);
       // get the post's id by splitting the id attribute
       let postId = self.prop('id').split("-")[1]
-      new PostComments(postId);
+      postComments(postId);
     });
   }
 

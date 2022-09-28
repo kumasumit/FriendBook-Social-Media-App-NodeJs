@@ -3,36 +3,60 @@
 // 1. When the page loads
 // 2. Creation of every post dynamically via AJAX
 
-class PostComments{
-    // constructor is used to initialize the instance of the class whenever a new instance is created
-    constructor(postId){
-        this.postId = postId;
-        this.postContainer = $(`#post-${postId}`);
-        this.newCommentForm = $(`#post-${postId}-comments-form`);
-        this.createComment(postId);
-        let self = this;
-        // call for all the existing comments
-        $(' .delete-comment-button', this.postContainer).each(function(){
-            self.deleteComment($(this));
-        });
-    }
+function postComments(postId) {
+    // console.log(postId)
+    // console.log("executed once ")
+        let postContainer = $(`#post-${postId}`);
+        let newCommentForm = $(`#post-${postId}-comments-form`);
+
+        // console.log(postContainer);
+        // console.log(newCommentForm)
+
+        let postObject = {
+            postId: postId,
+            postContainer: postContainer,
+            newCommentForm: newCommentForm,
+        }
+
+        createComment(postId);
 
 
-    createComment(postId){
-        let pSelf = this;
-        this.newCommentForm.submit(function(e){
+
+
+     // call for all the existing comments
+     $(' .delete-comment-button', postObject.postContainer).each(function(){
+        deleteComment($(this));
+    });
+
+
+
+
+
+    function createComment(postId){
+        // console.log("executed once in createComment")
+
+        let pSelf = {...postObject};
+        postObject.newCommentForm.submit(function(e){
+            // console.log("inside prevent default ---")
             e.preventDefault();
             let self = this;
+            // console.log(this);
             $.ajax({
                 type: 'post',
                 url: '/comments/create',
                 data: $(self).serialize(),
                 success: function(data){
-                    console.log(data);
-                    let newComment = pSelf.newCommentDom(data.data.comment);
+                    // console.log(data);
+                    let newComment = newCommentDom(data.data.comment);
+                    // console.log(postId)
+                    // console.log(newComment)
 
-                    $(`#post-comments-${postId}>ul`).prepend(newComment);
-                    pSelf.deleteComment($(' .delete-comment-button', newComment));
+                    $(`#post_comments_${postId}`).prepend(newComment);
+                    // $(`#post-comments-${postId}`).prepend(newComment);
+                    // $(`.post-comments-list > ul`).prepend(newComment);
+
+                    deleteComment($(' .delete-comment-button', newComment));
+                    $(postObject.newCommentForm)[0].reset();
                 }, error: function(error){
                     console.log(error.responseText);
                 }
@@ -42,8 +66,27 @@ class PostComments{
         });
     }
 
+    function deleteComment(deleteLink){
+        $(deleteLink).click(function(e){
+            e.preventDefault();
 
-    newCommentDom(comment){
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success: function(data){
+                    // console.log(data);
+                    $(`#comment-${data.data.comment_id}`).remove();
+                },error: function(error){
+                    console.log(error.responseText);
+                }
+            });
+        });
+    }
+
+
+    function newCommentDom(comment){
+        // console.log(" call inside newCommentDom ")
+
         // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
         return $(`<li id="comment-${comment._id}">
                         <p>
@@ -60,21 +103,5 @@ class PostComments{
                 </li>`);
     }
 
-
-    deleteComment(deleteLink){
-        $(deleteLink).click(function(e){
-            e.preventDefault();
-
-            $.ajax({
-                type: 'get',
-                url: $(deleteLink).prop('href'),
-                success: function(data){
-                    console.log(data);
-                    $(`#comment-${data.data.comment_id}`).remove();
-                },error: function(error){
-                    console.log(error.responseText);
-                }
-            });
-        });
-    }
 }
+
