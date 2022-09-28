@@ -1,7 +1,7 @@
 //import/require Like, Post and Comment Schema
-const Like = require("../models/like");
-const Post =  require("../models/post");
-const Comment = require('../models/comment');
+const Like = require("../models/likes");
+const Post =  require("../models/posts");
+const Comment = require('../models/comments');
 
 module.exports.toggleLike = async function(req, res){
     try{

@@ -10,7 +10,8 @@ router.use('/users', require('./users'));
 router.use('/posts', require('./posts'));
 //any routes with /comments/something will be controlled by routes/posts.js file
 router.use('/comments', require('./comments'));
-
+//any routes with /likes/something will be controlled by routes/likes.js file
+router.use('/likes', require('./likes'));
 
 
 module.exports = router
