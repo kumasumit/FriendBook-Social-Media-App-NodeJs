@@ -44,5 +44,12 @@
 <!-- this is a script ho submit requests to add/delete a post via ajax -->
 <script src="/js/home_posts.js"></script>
 
-
+<!-- import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
+<script src="js/toggle_likes.js"></script>
+<script>
+    $('.toggle-like-button').each(function(){
+        let self = this;
+        let toggleLike = new ToggleLike(self);
+    });
+</script>
 
