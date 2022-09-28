@@ -8,7 +8,11 @@ class ToggleLike{
         $(this.toggler).click(function(e){
             e.preventDefault();
             let self = this;
-
+            // console.log(self);
+            // this printts the entire a tag
+            // <a class="toggle-like-button" data-likes="1" href="/likes/toggle/?id=<%=post._id%>&type=Post">
+            // 1 Likes <br/>
+            // </a>
             // this is a new way of writing ajax which you might've studied, it looks like the same as promises
             $.ajax({
                 type: 'POST',
@@ -16,15 +20,13 @@ class ToggleLike{
             })
             .done(function(data) {
                 let likesCount = parseInt($(self).attr('data-likes'));
-                console.log(likesCount);
+                // console.log(likesCount);
                 if (data.data.deleted == true){
                     likesCount -= 1;
 
                 }else{
                     likesCount += 1;
                 }
-
-
                 $(self).attr('data-likes', likesCount);
                 $(self).html(`${likesCount} Likes`);
 
