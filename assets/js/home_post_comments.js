@@ -6,46 +6,39 @@
 function postComments(postId) {
     // console.log(postId)
     // console.log("executed once ")
-        let postContainer = $(`#post-${postId}`);
-        let newCommentForm = $(`#post-${postId}-comments-form`);
+    let postContainer = $(`#post-${postId}`);
+    let newCommentForm = $(`#post-${postId}-comments-form`);
 
-        // console.log(postContainer);
-        // console.log(newCommentForm)
+    // console.log(postContainer);
+    // console.log(newCommentForm)
 
-        let postObject = {
-            postId: postId,
-            postContainer: postContainer,
-            newCommentForm: newCommentForm,
-        }
+    let postObject = {
+        postId: postId,
+        postContainer: postContainer,
+        newCommentForm: newCommentForm,
+    };
 
-        createComment(postId);
+    createComment(postId);
 
-
-
-
-     // call for all the existing comments
-     $(' .delete-comment-button', postObject.postContainer).each(function(){
+    // call for all the existing comments
+    $(" .delete-comment-button", postObject.postContainer).each(function () {
         deleteComment($(this));
     });
 
-
-
-
-
-    function createComment(postId){
+    function createComment(postId) {
         // console.log("executed once in createComment")
 
-        let pSelf = {...postObject};
-        postObject.newCommentForm.submit(function(e){
+        let pSelf = { ...postObject };
+        postObject.newCommentForm.submit(function (e) {
             // console.log("inside prevent default ---")
             e.preventDefault();
             let self = this;
             // console.log(this);
             $.ajax({
-                type: 'post',
-                url: '/comments/create',
+                type: "post",
+                url: "/comments/create",
                 data: $(self).serialize(),
-                success: function(data){
+                success: function (data) {
                     // console.log(data);
                     let newComment = newCommentDom(data.data.comment);
                     // console.log(postId)
@@ -55,36 +48,35 @@ function postComments(postId) {
                     // $(`#post-comments-${postId}`).prepend(newComment);
                     // $(`.post-comments-list > ul`).prepend(newComment);
 
-                    deleteComment($(' .delete-comment-button', newComment));
+                    deleteComment($(" .delete-comment-button", newComment));
                     $(postObject.newCommentForm)[0].reset();
-                }, error: function(error){
+                },
+                error: function (error) {
                     console.log(error.responseText);
-                }
+                },
             });
-
-
         });
     }
 
-    function deleteComment(deleteLink){
-        $(deleteLink).click(function(e){
+    function deleteComment(deleteLink) {
+        $(deleteLink).click(function (e) {
             e.preventDefault();
 
             $.ajax({
-                type: 'get',
-                url: $(deleteLink).prop('href'),
-                success: function(data){
+                type: "get",
+                url: $(deleteLink).prop("href"),
+                success: function (data) {
                     // console.log(data);
                     $(`#comment-${data.data.comment_id}`).remove();
-                },error: function(error){
+                },
+                error: function (error) {
                     console.log(error.responseText);
-                }
+                },
             });
         });
     }
 
-
-    function newCommentDom(comment){
+    function newCommentDom(comment) {
         // console.log(" call inside newCommentDom ")
 
         // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
@@ -102,6 +94,4 @@ function postComments(postId) {
                         </p>
                 </li>`);
     }
-
 }
-
