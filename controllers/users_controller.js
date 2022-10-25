@@ -145,13 +145,13 @@ module.exports.updateForgotPassword = function (req, res, next) {
             console.log("updated data");
 
             if (!user) {
-                return res.redirect("user_sign-up", {
+                return res.render("user_sign_up", {
                     title: "FriendBook | Sign Up",
                 });
             } else {
                 return res.render("user_sign_in", {
                     title: "FriendBook | Sign In",
-                });
+                }); 
             }
         }
     );
