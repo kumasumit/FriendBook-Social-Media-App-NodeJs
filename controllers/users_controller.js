@@ -125,3 +125,34 @@ module.exports.destroySession = function (req, res, next) {
         res.redirect("/");
     });
 };
+
+module.exports.forgotPassword = function (req, res, next) {
+    return res.render("forgot_password", {
+        title: "FriendBook | Forgot Password",
+    });
+};
+
+module.exports.updateForgotPassword = function (req, res, next) {
+    User.findOneAndUpdate(
+        { email: req.body.email },
+        { password: req.body.password },
+        null,
+        function (err, user) {
+            if (err) {
+                console.log("error in forgoting password");
+                return;
+            }
+            console.log("updated data");
+
+            if (!user) {
+                return res.redirect("user_sign-up", {
+                    title: "FriendBook | Sign Up",
+                });
+            } else {
+                return res.render("user_sign_in", {
+                    title: "FriendBook | Sign In",
+                });
+            }
+        }
+    );
+};

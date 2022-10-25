@@ -145,7 +145,6 @@
                         </p>
                 </li>`);
     }
-
-    addFriend();
-    convertPostsToAjax();
+    // addFriend();
+    // convertPostsToAjax();
 }

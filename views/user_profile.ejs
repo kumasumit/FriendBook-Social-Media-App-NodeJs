@@ -22,7 +22,7 @@
 
     <form action="/friend/addFriend" method="POST">
         <input type="hidden" name="toUser" value="<%= profile_user.id %>">
-        <button type="submit">
+        <button type="submit" id="add-friend">
             Add friend
         </button>
     </form>
@@ -33,7 +33,7 @@
     <form action="/friend/removeFriend" method="POST">
         <input type="hidden" name="toUser" value="<%= profile_user.id %>">
 
-        <button type="submit">
+        <button type="submit" id = "remove-friend">
             Remove friend
         </button>
     </form>
