@@ -3,6 +3,9 @@
     FriendBook / Profile Page
 
 </h1>
+<p><%= profile_user %></p>
+<p><%= profile_user %></p>
+
 <% if(user.id == profile_user.id) { %>
     <!-- if logged in user is same as the user clicking to update
     only then show the update form -->
@@ -11,8 +14,29 @@
         <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email %>" required>
         <input type="submit" value="Update">
     </form>
-<% }else { %>
-    <!-- if logged in user is viewing someone's else profile then show only user.name and user.email  -->
+    <% }else if(!allFriends.includes(profile_user.id)) {%>
+        <!-- if logged in user is viewing someone's else profile then show only user.name and user.email  -->
+
     <p><%= profile_user.name %></p>
     <p><%= profile_user.email %></p>
-<% } %>
+
+    <form action="/friend/addFriend" method="POST">
+        <input type="hidden" name="toUser" value="<%= profile_user.id %>">
+        <button type="submit" id="add-friend">
+            Add friend
+        </button>
+    </form>
+<% } else  {%>
+    <p><%= profile_user.name %></p>
+    <p><%= profile_user.email %></p>
+
+    <form action="/friend/removeFriend" method="POST">
+        <input type="hidden" name="toUser" value="<%= profile_user.id %>">
+
+        <button type="submit" id = "remove-friend">
+            Remove friend
+        </button>
+    </form>
+
+
+<% }%>

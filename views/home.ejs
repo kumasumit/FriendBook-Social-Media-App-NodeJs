@@ -32,7 +32,7 @@
     <!-- here user is user from User Schema, so it contains all the fields not just userId   -->
     <!-- display all the users alongwith a link to each user profile -->
     <p>
-      <a href="/users/profile/<%= user.id %>"> <%= user.name %> </a>
+      <a href="/users/profile/<%= user.id %>" > <%= user.name %> </a>
     </p>
     <% } %>
   </section>
@@ -46,6 +46,9 @@
 
 <!-- import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
 <script src="js/toggle_likes.js"></script>
+
+<script src="js/friend_ship.js"></script>
+
 <script>
     $('.toggle-like-button').each(function(){
         let self = this;
